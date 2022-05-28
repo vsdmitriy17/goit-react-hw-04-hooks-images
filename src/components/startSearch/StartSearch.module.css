@@ -1,0 +1,19 @@
+.start {
+    position: relative;
+    background-color: black;
+}
+
+.startTitle {
+    position: absolute;
+    top: 120px;
+    left: 600px;
+    color: white;
+    font: inherit;
+    font-size: 56px;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.startImage {
+    opacity: 0.9;
+}
