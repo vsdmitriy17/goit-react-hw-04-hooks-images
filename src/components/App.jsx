@@ -1,31 +1,17 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import ImageGallery from './imageGallery/ImageGallery.jsx';
 import Searchbar from './searchbar/Searchbar.jsx';
 import SearchForm from './searchForm/SearchForm.jsx';
 
-class App extends Component {
-    state = {
-        qwery: "",
-        startPage: 1
-    }
+export default function App() {
+    const [qwery, setQwery] = useState("");
 
-    formSubmit = data => {
-        this.setState({
-            qwery: data.qwery
-        })
-    }
-
-    
-    render() {
-        return (
-            <>
-                <Searchbar>
-                    <SearchForm onSubmit={this.formSubmit} />
-                </Searchbar>
-                <ImageGallery qwery={this.state.qwery} startPage={this.state.startPage}/>
-            </>
-        );
-    };
+    return (
+        <>
+            <Searchbar>
+                <SearchForm onSubmit={setQwery} />
+            </Searchbar>
+            <ImageGallery qwery={qwery} />
+        </>
+    );
 };
-
-export default App;

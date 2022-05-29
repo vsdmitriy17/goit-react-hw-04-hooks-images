@@ -1,46 +1,43 @@
 import styles from './Modal.module.css';
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import {ReactComponent as CloseIcon} from '../icons/x-circle.svg';
 import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector("#modal-root");
 
-export default class Modal extends Component {
+export default function Modal({ onClickClose, largeImg, tags }) {
 
-    componentDidMount() {
-        window.addEventListener("keydown", this.onEscClick)
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("keydown", this.onEscClick);
-    }
-
-    onEscClick = evt => {
+    useEffect(() => {
+        const onEscClick = evt => {
             if (evt.code === "Escape") {
-                this.props.onClickClose();
+                onClickClose();
             }
-    }
+        }
+
+        window.addEventListener("keydown", onEscClick);
+        return () => {
+            window.removeEventListener("keydown", onEscClick);
+        }
+    }, [onClickClose]);
     
-    onBackdropClick = evt => {
+    const onBackdropClick = evt => {
         if (evt.currentTarget === evt.target) {
-            this.props.onClickClose();
+            onClickClose();
         }
     }
 
-    render() {
         return createPortal(
-            <div className={styles.overlay} onClick={this.onBackdropClick}>
+            <div className={styles.overlay} onClick={onBackdropClick}>
                 <div className={styles.modal}>
-                    <button type="button" className={styles.modalBtn} onClick={() => { this.props.onClickClose() }} area-label="Close">
+                    <button type="button" className={styles.modalBtn} onClick={() => { onClickClose() }} area-label="Close">
                         <CloseIcon width="30" height="30" fill="black" />
                     </button>
-                    <img src={this.props.largeImg} alt={this.props.tags} className={styles.modalImg} />
+                    <img src={largeImg} alt={tags} className={styles.modalImg} />
                 </div>
             </div>,
             modalRoot
         );
-    }
 };
 
 Modal.propTypes = {

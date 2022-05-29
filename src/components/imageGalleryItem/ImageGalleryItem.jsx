@@ -1,21 +1,19 @@
 import styles from './ImageGalleryItem.module.css';
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class ImageGalleryItem extends Component {
-    render() {
-        return (
-            <li className={styles.gallery_item}>
-                <img
-                    className={styles.gallery_item__image}
-                    src={this.props.data.webformatURL}
-                    alt={this.props.data.tags}
-                    onClick={() => { this.props.onClickItem(this.props.data.largeImageURL, this.props.data.tags) }}
-                    id={this.props.data.id}
-                />
-            </li>
-        );
-    }
+export default function ImageGalleryItem({onClickItem, data}) {
+    return (
+        <li className={styles.gallery_item}>
+            <img
+                className={styles.gallery_item__image}
+                src={data.webformatURL}
+                alt={data.tags}
+                onClick={() => { onClickItem(data.largeImageURL, data.tags) }}
+                id={data.id}
+            />
+        </li>
+    );
 };
 
 ImageGalleryItem.propTypes = {
